@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 
-// THIS CODE FAILS DUE TO TIME CONSTRAINTS
+// Ruby code recreated in cpp for speed
 
 bool palindrome(string str) {
     int limitl = 0;
@@ -14,14 +14,11 @@ bool palindrome(string str) {
     return true;
 }
 
-// loops through string to find a position where 'a' can be inserted and not be a palindrome
 //returns correct string if found else returns "404"
 string insert_no_palindrome(string str) {
-    for (int i = 0; i < str.length(); i++) {
-        str.insert(i, 1, 'a');
-        if (!palindrome(str)) { return str; }
-        str.erase(i, 1);
-    }
+    // appending 'a' before or after a string is enough to break a palindrome
+    if (!palindrome(str + 'a')) { return str + 'a'; }
+    if (!palindrome('a' + str)) { return 'a' + str; }
     return "404";
 }
 
