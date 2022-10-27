@@ -1,21 +1,38 @@
 # @param {Integer[]} nums
 # @return {Integer}
 
-###### FAILS DUE TO TIME CONSTRAINT ######
+#### I initially implemented this in a much simpler method but
+#### but that was failing due to the time limit :p
 
-# just counts the amount of times each number occurs and returns the number if amount > 1
-# time complexity O(n^2) since its basically a nested loop
-# space complexity O(1)
+# Finds the duplicate using Floyd's Hare-tortoise algorithm (except mine uses turtles)
+# we take each number in the array as a pointer to the index of another number in the array similar to a linked list
+# so when there is a duplicate number it creates a loop from the pointers whose entrypoint would be the duplicate number
+# so we can find the entry point by using the Hare-tortoise algorithm which will give use the duplicate number.
+# time complexity O(n)
+# space complexity O(1) as required by the problem
 def find_duplicate(nums)
-  n = nums.length - 1
-  (1..n).each do |i|
-    return i if nums.count(i) > 1
+  turtle = nums[nums[0]]
+  hare   = nums[nums[nums[0]]]
+
+  # until hare and turtle intersect at some point in the loop
+  until turtle == hare
+    turtle = nums[turtle]     # move forward one pointer
+    hare   = nums[nums[hare]] # moves forward two pointers
   end
+
+  turtle = nums[0] # reset hare to the start
+  # until they reach the entrance which is the duplicated number
+  until turtle == hare
+    turtle = nums[turtle] # moves forward one pointer
+    hare   = nums[hare]   # moves forward one pointer
+  end
+
+  hare
 end
 
-# This could also be done by sorting the array and finding adjacent elements and various other methods which will have-
-# lower time complexity, but thats not allowed since sorting would require O(n) space complexity
-# or modifying the given array, but thats not allowed according to the question.
+# there are several easier ways to find duplicates (like sorting) but most of them are invalid due to-
+# the question saying that space complexity must be constant and no modifying the original array
 
-# You can get the best time complexity O(n) by using the turtle and hare method and still have-
-# constant space complexity, I haven't done that since that it's not a strict requirement.
+# one of the easier valid ways it to simply run a nested loop and either compare each num or-
+# count each number to find the duplicate (O(n^2) time complexity) which is what I tried in previous
+# attempts but sadly that fails due to time limit in one test case, maybe that's because ruby is kinda slow.
