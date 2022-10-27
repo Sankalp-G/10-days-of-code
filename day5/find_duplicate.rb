@@ -1,20 +1,21 @@
 # @param {Integer[]} nums
 # @return {Integer}
 
-##### THIS SOLUTION IS WRONG SINCE THERE CAN BE MULTIPLE DUPLICATES #####
+###### FAILS DUE TO TIME CONSTRAINT ######
 
-# sum of first n natural numbers using the usual formula
-def sum_of_natural_numbers(n)
-  n * (n + 1) / 2
-end
-
-# finds the duplicate by subtracting the sum of given nums array by the sum of first n natural numbers
-# this works since the numbers in the array are in the range [1, n] and there are n + 1 elements
-# so if there is a duplicated number it must be in addition to the first n natural numbers
-# so by subtracting we can easily find the duplicate element
-# This should be O(n) time complexity due to summation
+# just counts the amount of times each number occurs and returns the number if amount > 1
+# time complexity O(n^2) since its basically a nested loop
+# space complexity O(1)
 def find_duplicate(nums)
   n = nums.length - 1
-
-  nums.sum - sum_of_natural_numbers(n)
+  (1..n).each do |i|
+    return i if nums.count(i) > 1
+  end
 end
+
+# This could also be done by sorting the array and finding adjacent elements and various other methods which will have-
+# lower time complexity, but thats not allowed since sorting would require O(n) space complexity
+# or modifying the given array, but thats not allowed according to the question.
+
+# You can get the best time complexity O(n) by using the turtle and hare method and still have-
+# constant space complexity, I haven't done that since that it's not a strict requirement.
