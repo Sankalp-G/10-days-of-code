@@ -1,8 +1,8 @@
 # @param {Integer[]} nums
 # @return {Integer}
 
-#### I initially implemented this in a much simpler method but
-#### but that was failing due to the time limit :p
+#### I initially implemented this in a much simpler method (link in readme)
+#### but that was fails due to the time limit :p
 
 # Finds the duplicate using Floyd's Hare-tortoise algorithm (except mine uses turtles)
 # we take each number in the array as a pointer to the index of another number in the array similar to a linked list
